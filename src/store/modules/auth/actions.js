@@ -4,3 +4,16 @@ export function signInRequest(id) {
     payload: { id },
   };
 }
+
+export function signSuccess(data) {
+  return {
+    type: '@auth/SIGN_IN_SUCCESS',
+    payload: { ...data },
+  };
+}
+
+export function signFailure() {
+  return {
+    type: '@auth/SIGN_IN_FAILURE',
+  };
+}
