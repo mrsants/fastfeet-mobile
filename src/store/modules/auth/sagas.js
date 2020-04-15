@@ -1,25 +1,24 @@
 import { Alert } from 'react-native';
-import { isNullOrUndefined } from 'util';
-import { takeLatest, call, put, all } from 'redux-saga/effects';
-
-import { signSuccess, signFailure } from './actions';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { format, parseISO } from 'date-fns';
 import { api } from '../../../services';
+import { signFailure, signInSuccess } from './actions';
 
 export function* signIn({ payload }) {
   try {
     const { id } = payload;
 
-    const response = yield call(api.get, `deliverymans/${id}`);
 
-    if (isNullOrUndefined(response.data)) {
-      Alert.alert(
-        'Falha na autenticação',
-        'Houve um erro ao entrar no sistema, verifique seus dados'
-      );
-      yield put(signFailure());
-      return;
-    }
-    yield put(signSuccess(response.data));
+    const response = yield call(api.get, `deliverymans/${Number(id)}`);
+
+    yield put(
+      signInSuccess(id, {
+        name: response.data.name,
+        email: response.data.email,
+        created_at: format(parseISO(response.data.created_at), 'dd/MM/yyyy'),
+        avatar: response.data.avatar,
+      })
+    );
   } catch (err) {
     Alert.alert(
       'Falha na autenticação',
