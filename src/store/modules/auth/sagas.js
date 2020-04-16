@@ -1,8 +1,8 @@
 import { Alert } from 'react-native';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { format, parseISO } from 'date-fns';
-import { api } from '../../../services';
 import { signFailure, signInSuccess } from './actions';
+import { api } from '~/services';
 
 export function* signIn({ payload }) {
   try {

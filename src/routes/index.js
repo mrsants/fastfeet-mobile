@@ -1,36 +1,26 @@
-import PropTypes from 'prop-types';
-import * as React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import Profile from '../pages/Profile';
-import SignIn from '../pages/SignIn';
+import SignIn from '~/pages/SignIn';
+import DashboardRoutes from './Dashboard.routes';
 
 const Stack = createStackNavigator();
 
-export default function Routes({ logged }) {
-  return !logged ? (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="SignIn"
-          component={SignIn}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+export default function createRouter(isSigned = false) {
+  return !isSigned ? (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="SignIn"
+        options={{ headerShown: false }}
+        component={SignIn}
+      />
+    </Stack.Navigator>
   ) : (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="DashBoard"
-          component={Profile}
-          options={{ headerShown: false }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Home"
+        options={{ headerShown: false }}
+        component={DashboardRoutes}
+      />
+    </Stack.Navigator>
   );
 }
-
-Routes.propTypes = {
-  logged: PropTypes.bool.isRequired,
-};

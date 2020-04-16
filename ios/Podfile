@@ -78,6 +78,9 @@ target 'fastfeetMobile' do
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
 
+
+
+
   target 'fastfeetMobileTests' do
     inherit! :complete
     # Pods for testing

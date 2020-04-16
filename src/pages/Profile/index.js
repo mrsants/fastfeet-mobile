@@ -13,14 +13,11 @@ import {
   LogoutButton,
 } from './styles';
 
+
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state?.user?.profile);
 
-  if(profile === null || profile === undefined){
-    handleLogout();
-  }
-    
   function handleLogout() {
     dispatch(signOut());
   }
@@ -28,10 +25,8 @@ export default function Profile() {
   return (
     <Container>
       <Content>
-        {profile?.avatar ? (
+        {profile?.avatar && (
           <Avatar source={{ uri: profile?.avatar?.url }} />
-        ) : (
-          <>{profile?.name && <NamePhoto name={profile?.name} />}</>
         )}
 
         <Details>
