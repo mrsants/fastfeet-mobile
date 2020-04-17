@@ -1,5 +1,4 @@
 import { useNavigation } from '@react-navigation/native';
-import PropTypes from 'prop-types';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import BarProgress from '../BarProgress';
@@ -38,13 +37,3 @@ export default function DeliveryItem({ data }) {
   );
 }
 
-DeliveryItem.propTypes = {
-  data: PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    status: PropTypes.string.isRequired,
-    start_date_formated: PropTypes.string.isRequired,
-    recipient: PropTypes.shape({
-      city: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-};

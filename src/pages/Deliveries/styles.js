@@ -46,7 +46,7 @@ export const Menu = styled.View`
   align-items: baseline;
 `;
 
-export const MenuTitle = styled.Text`
+export const Title = styled.Text`
   font-size: 20px;
   font-weight: bold;
   color: #444;

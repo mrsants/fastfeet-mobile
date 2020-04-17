@@ -6,12 +6,12 @@ import Avatar from '~/components/Avatar';
 import { api } from '~/services';
 import { signOut } from '~/store/modules/auth/actions';
 import DeliveryItem from './DeliveryItem';
-import { ActionContainer, Container, List, Menu, MenuTitle, Name, Option, Options, Profile, TitleContainer, Welcome } from './styles';
+import { ActionContainer, Container, List, Menu, Title, Name, Option, Options, Profile, TitleContainer, Welcome } from './styles';
 
 
 export default function Deliveries() {
     const [deliveries, setDeliveries] = useState([]);
-    const [typeDeliveries, setTypeDeliveries] = useState('PENDENTES');
+    const [typeOrder, setTypeOrder] = useState('PENDENTES');
 
     const dispatch = useDispatch();
     const profile = useSelector(state => state?.user?.profile);
@@ -22,11 +22,11 @@ export default function Deliveries() {
     }
 
     function handlePending() {
-        setTypeDeliveries('PENDENTES');
+        setTypeOrder('PENDENTES');
     }
 
     function handleDelivered() {
-        setTypeDeliveries('ENTREGUES');
+        setTypeOrder('ENTREGUES');
     }
 
     useEffect(() => {
@@ -45,10 +45,18 @@ export default function Deliveries() {
                     : '- - / - - / - -',
             }));
 
-            setDeliveries(data);
+            if (typeOrder === 'PENDENTES') {
+                const result = data.filter(deliveryItem => deliveryItem.status === 'PENDENTE')
+                setDeliveries(result);
+            }
+            else {
+                const result = data.filter(deliveryItem => deliveryItem.status === 'ENTREGUE')
+                setDeliveries(result);
+            }
+
         }
         loadDeliveries();
-    }, [auth.id, typeDeliveries]);
+    }, [auth.id, typeOrder]);
 
     return (
         <Container>
@@ -75,19 +83,19 @@ export default function Deliveries() {
             </Profile>
 
             <Menu>
-                <MenuTitle>Entregas</MenuTitle>
+                <Title>Entregas</Title>
                 <Options>
                     <Option
                         style={{
                             marginRight: 15,
                         }}
                         onPress={handlePending}
-                        selected={typeDeliveries === 'PENDENTES'}
+                        selected={typeOrder === 'PENDENTES'}
                     >
                         Pendentes
                     </Option>
                     <Option
-                        selected={typeDeliveries === 'ENTREGUES'}
+                        selected={typeOrder === 'ENTREGUES'}
                         onPress={handleDelivered}
                     >
                         Entregues
