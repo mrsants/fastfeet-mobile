@@ -91,7 +91,7 @@ export default function OrderDetails() {
         <Menu>
           <Option
             onPress={() =>
-              navigation.navigate('Problem', { delivery_id: delivery.id })
+              navigation.navigate('CreateNewProblem', { delivery_id: delivery.id })
             }
           >
             <Icon name="highlight-off" color="#E74040" size={20} />
@@ -106,7 +106,7 @@ export default function OrderDetails() {
             <Icon name="info-outline" color="#E7BA40" size={20} />
             <OptionTitle>Visualizar Problemas</OptionTitle>
           </Option>
-          
+
           {delivery.status === 'PENDENTE' ? (
             <Option onPress={handleNewProblem}>
               <Icon name="local-shipping" color="#7D40E7" size={20} />

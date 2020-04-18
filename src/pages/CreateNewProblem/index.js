@@ -5,21 +5,24 @@ import { api } from '~/services';
 import { Background, Container, Content, Form, SubmitButton, TextArea } from './styles';
 
 
-export default function Problem() {
+export default function CreateNewProblem() {
 
   const [loading, setLoading] = useState(false);
 
   const route = useRoute();
   const navigation = useNavigation();
+  const [description, setDescription] = useState();
   const { delivery_id } = route.params;
 
-  async function handleSubmit({ description }, { reset }) {
+  async function handleUpdate() {
     setLoading(true);
     try {
-      await api.post(`/deliveries/${delivery_id}/problems`, {
+      await api.post(`deliverymans/${delivery_id}/problems`, {
         description,
       });
+
       Alert.alert('Problema cadastrado com sucesso!');
+
       navigation.navigate('Entregas');
     } catch (err) {
       Alert.alert(err.response.data.error);
@@ -42,12 +45,13 @@ export default function Problem() {
             style={{
               textAlignVertical: 'top',
             }}
+            onChangeText={setDescription}
           />
         </Form>
 
         <SubmitButton
           loading={loading}
-          onPress={handleSubmit}
+          onPress={handleUpdate}
         >
           Enviar
         </SubmitButton>

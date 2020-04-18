@@ -3,8 +3,8 @@ import React from 'react';
 import Deliveries from '~/pages/Deliveries';
 import OrderConfirmation from '~/pages/OrderConfirmation';
 import OrderDetails from '~/pages/OrderDetails';
-import Problem from '~/pages/Problem';
-
+import CreateNewProblem from '~/pages/CreateNewProblem';
+import ShowProblem from '~/pages/ShowProblem';
 
 const Stack = createStackNavigator();
 
@@ -42,12 +42,20 @@ export default function DeliveryRoutes() {
         component={OrderConfirmation}
       />
       <Stack.Screen
-        name="Problem"
+        name="CreateNewProblem"
+        options={{
+          title: 'Visualizar problemas',
+        }}
+        component={CreateNewProblem}
+      />
+      <Stack.Screen
+        name="ShowProblem"
         options={{
           title: 'Informar problema',
         }}
-        component={Problem}
+        component={ShowProblem}
       />
+
     </Stack.Navigator>
   );
 }
