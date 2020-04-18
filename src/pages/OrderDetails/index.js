@@ -8,42 +8,42 @@ import { Background, Card, Container, Content, Label, Menu, Option, OptionTitle,
 
 
 export default function OrderDetails() {
-  // const auth = useSelector(state => state.auth);
+  const auth = useSelector(state => state.auth);
   const navigation = useNavigation();
   const route = useRoute();
   const { delivery } = route.params;
 
-  // async function handleDeliveryWithdraw() {
-  //   async function delievryWithdraw() {
-  //     try {
-  //       await api.put(`/deliveryman/${auth.id}/delivery/${delivery.id}`, {
-  //         start_date: new Date(),
-  //       });
+  async function handleNewProblem() {
+    async function loadNewProblem() {
+      try {
+        await api.put(`/deliveryman/${auth.id}/delivery/${delivery.id}`, {
+          start_date: new Date(),
+        });
 
-  //       navigation.navigate('Entregas');
-  //     } catch (err) {
-  //       Alert.alert('Horário de retirda inválida.');
-  //     }
-  //   }
+        navigation.navigate('Entregas');
+      } catch (err) {
+        Alert.alert('Horário de retirda inválida.');
+      }
+    }
 
-  //   Alert.alert(
-  //     'Confirmação de retirada',
-  //     'Confirma que deseja realizar a retirada desta encomenda?',
-  //     [
-  //       {
-  //         text: 'Cancelar',
-  //         style: 'destructive',
-  //       },
-  //       {
-  //         text: 'Confirmar',
-  //         onPress: delievryWithdraw,
-  //       },
-  //     ],
-  //     {
-  //       cancelable: false,
-  //     }
-  //   );
-  // }
+    Alert.alert(
+      'Confirmação de retirada',
+      'Confirma que deseja realizar a retirada desta encomenda?',
+      [
+        {
+          text: 'Cancelar',
+          style: 'destructive',
+        },
+        {
+          text: 'Confirmar',
+          onPress: loadNewProblem,
+        },
+      ],
+      {
+        cancelable: false,
+      }
+    );
+  }
 
   return (
     <Container>
@@ -91,35 +91,39 @@ export default function OrderDetails() {
         <Menu>
           <Option
             onPress={() =>
-              navigation.navigate('CraeteProblem', { delivery_id: delivery.id })
+              navigation.navigate('Problem', { delivery_id: delivery.id })
             }
           >
             <Icon name="highlight-off" color="#E74040" size={20} />
             <OptionTitle>Informar Problema</OptionTitle>
           </Option>
-          <Option>
+
+          <Option
+            onPress={() =>
+              navigation.navigate('ShowProblem', { delivery_id: delivery.id })
+            }
+          >
             <Icon name="info-outline" color="#E7BA40" size={20} />
             <OptionTitle>Visualizar Problemas</OptionTitle>
           </Option>
+          
           {delivery.status === 'PENDENTE' ? (
-            <Option onPress={()=> {
-
-            }}>
+            <Option onPress={handleNewProblem}>
               <Icon name="local-shipping" color="#7D40E7" size={20} />
               <OptionTitle>Realizar Retirada</OptionTitle>
             </Option>
           ) : (
-            <Option
-              onPress={() =>
-                navigation.navigate('ConfirmPhoto', {
-                  delivery_id: delivery.id,
-                })
-              }
-            >
-              <Icon name="check-circle" color="#7D40E7" size={20} />
-              <OptionTitle>Confirmar Entrega</OptionTitle>
-            </Option>
-          )}
+              <Option
+                onPress={() =>
+                  navigation.navigate('OrderConfirmation', {
+                    delivery_id: delivery.id,
+                  })
+                }
+              >
+                <Icon name="check-circle" color="#7D40E7" size={20} />
+                <OptionTitle>Confirmar Entrega</OptionTitle>
+              </Option>
+            )}
         </Menu>
       </Content>
     </Container>

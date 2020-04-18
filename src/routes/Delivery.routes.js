@@ -1,11 +1,10 @@
-import React from 'react';
-
 import { createStackNavigator } from '@react-navigation/stack';
-
-// import CreateProblem from '~/pages/CreateProblem';
+import React from 'react';
 import Deliveries from '~/pages/Deliveries';
-// import DeliveryConfirmPhoto from '~/pages/DeliveryConfirmPhoto';
+import OrderConfirmation from '~/pages/OrderConfirmation';
 import OrderDetails from '~/pages/OrderDetails';
+import Problem from '~/pages/Problem';
+
 
 const Stack = createStackNavigator();
 
@@ -35,20 +34,20 @@ export default function DeliveryRoutes() {
         }}
         component={OrderDetails}
       />
-      {/* <Stack.Screen
-        name="ConfirmPhoto"
+      <Stack.Screen
+        name="OrderConfirmation"
         options={{
           title: 'Confirmar entrega',
         }}
-        component={DeliveryConfirmPhoto}
+        component={OrderConfirmation}
       />
       <Stack.Screen
-        name="CraeteProblem"
+        name="Problem"
         options={{
           title: 'Informar problema',
         }}
-        component={CreateProblem}
-      /> */}
+        component={Problem}
+      />
     </Stack.Navigator>
   );
 }

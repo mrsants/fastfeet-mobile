@@ -1,8 +1,6 @@
 import React from 'react';
 import { View } from 'react-native';
 
-import PropTypes from 'prop-types';
-
 import {
   Container,
   Ball,
@@ -39,7 +37,3 @@ export default function BarProgress({ status }) {
     </Container>
   );
 }
-
-BarProgress.propTypes = {
-  status: PropTypes.string.isRequired,
-};

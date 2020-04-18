@@ -6,7 +6,6 @@ import {
   Container,
   Avatar,
   Content,
-  NamePhoto,
   Details,
   Label,
   Information,

@@ -19,12 +19,6 @@ export const Avatar = styled(AvatarComponent)`
   border-radius: 68.5px;
 `;
 
-// export const NamePhoto = styled(NamePhotoComponent)`
-//   height: 137px;
-//   width: 137px;
-//   border-radius: 68.5px;
-// `;
-
 export const Details = styled.View`
   width: 100%;
 
