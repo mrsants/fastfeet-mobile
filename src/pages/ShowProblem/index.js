@@ -1,40 +1,44 @@
-import React, { useState } from 'react';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import { Background, Card, Container, Content, Label, Title, TitleContainer, Value } from './styles';
+import React, { useEffect, useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Background, Card, Container, Content, Description, Date, Title } from './styles';
 import { api } from '~/services';
+import { format, parseISO } from 'date-fns';
+
 
 export default function ShowProblem() {
-    // const route = useRoute();
-    // const { delivery_id } = route;
-    // const [problems, setProblems] = useState([]);
+    const routes = useRoute();
+    const { delivery_id } = routes.params;
+    const [problems, setProblems] = useState([]);
 
-    // useEffect(()=> {
-    //     async function loadProblem() {
-    //         const response = await api.get('')
-    //     }
+    useEffect(() => {
+        async function loadProblem() {
+            const response = await api.get(`deliverymans/problems/${delivery_id}`);
 
-    //     loadProblem();
-    // })
+            const data = response.data.map(problem => {
+                return {
+                    id: problem?.id,
+                    description: problem?.description,
+                    date: format(parseISO(problem?.created_at), 'dd/MM/yyyy')
+                }
+            });
+
+            setProblems(data);
+        }
+
+        loadProblem();
+    }, []);
+
     return (
         <Container>
             <Background />
             <Content>
-                <Card>
-                    <TitleContainer>
-                        <Icon name="local-shipping" color="#7D40E7" size={20} />
-                        <Title>Informações da entrega</Title>
-                    </TitleContainer>
-                    <Label>DESTINATÁRIO</Label>
-                    <Value>{delivery.recipients.name}</Value>
-                    <Label>ENDEREÇO DE ENTREGA</Label>
-                    <Value>
-                        {delivery.recipients.street}, {delivery.recipients.number},{' '}
-                        {delivery.recipients.city} - {delivery.recipients.state},{' '}
-                        {delivery.recipients.zip_code}
-                    </Value>
-                    <Label>PRODUTO</Label>
-                    <Value>{delivery.product}</Value>
-                </Card>
+                <Title>Encomenda {problems?.id}</Title>
+                {problems.map(item => {
+                    return (<Card key={item.id}>
+                        <Description>{item?.description}</Description>
+                        <Date>{item.date}</Date>
+                    </Card>)
+                })}
             </Content>
         </Container>
     );
