@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import { StatusBar, View } from 'react-native';
+import { StatusBar, View, Alert } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
 
@@ -13,16 +13,16 @@ export default function OrderDetails() {
   const route = useRoute();
   const { delivery } = route.params;
 
-  async function handleNewProblem() {
-    async function loadNewProblem() {
+  async function handleWithDrawDelivery() {
+    async function loadWithDraw() {
       try {
-        await api.put(`/deliveryman/${auth.id}/delivery/${delivery.id}`, {
+        await api.put(`/deliverymans/${auth.id}/deliveries/${delivery.id}`, {
           start_date: new Date(),
         });
 
         navigation.navigate('Entregas');
       } catch (err) {
-        Alert.alert('Horário de retirda inválida.');
+        Alert.alert('Ocorreu um erro ao tentar retirar!');
       }
     }
 
@@ -36,7 +36,7 @@ export default function OrderDetails() {
         },
         {
           text: 'Confirmar',
-          onPress: loadNewProblem,
+          onPress: loadWithDraw,
         },
       ],
       {
@@ -90,6 +90,8 @@ export default function OrderDetails() {
 
         <Menu>
           <Option
+            activeOpacity={delivery.status === 'PENDENTE' ? 1 : 0.7}
+            disabled={delivery.status === 'PENDENTE'}
             onPress={() =>
               navigation.navigate('CreateNewProblem', { delivery_id: delivery.id })
             }
@@ -99,6 +101,7 @@ export default function OrderDetails() {
           </Option>
 
           <Option
+            activeOpacity={delivery.status === 'PENDENTE' ? 1 : 0.7}
             onPress={() =>
               navigation.navigate('ShowProblem', { delivery_id: delivery.id })
             }
@@ -108,7 +111,7 @@ export default function OrderDetails() {
           </Option>
 
           {delivery.status === 'PENDENTE' ? (
-            <Option onPress={handleNewProblem}>
+            <Option onPress={handleWithDrawDelivery}>
               <Icon name="local-shipping" color="#7D40E7" size={20} />
               <OptionTitle>Realizar Retirada</OptionTitle>
             </Option>

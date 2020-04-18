@@ -45,17 +45,18 @@ export default function Deliveries() {
                     : '- - / - - / - -',
             }));
 
-            if (typeOrder === 'PENDENTES') {
-                const result = data.filter(deliveryItem => deliveryItem.status === 'PENDENTE')
+            if(typeOrder == 'ENTREGUES'){
+                const result = data.filter(itemDelivery => itemDelivery.status === 'ENTREGUE');
                 setDeliveries(result);
-            }
-            else {
-                const result = data.filter(deliveryItem => deliveryItem.status === 'ENTREGUE')
-                setDeliveries(result);
+            }else {
+                setDeliveries(data);
             }
 
+
         }
+
         loadDeliveries();
+
     }, [auth.id, typeOrder]);
 
     return (
