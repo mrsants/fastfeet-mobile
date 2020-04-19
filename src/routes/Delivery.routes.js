@@ -1,10 +1,11 @@
 import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
 import Deliveries from '~/pages/Deliveries';
-import OrderConfirmation from '~/pages/OrderConfirmation';
+
 import OrderDetails from '~/pages/OrderDetails';
 import CreateNewProblem from '~/pages/CreateNewProblem';
 import ShowProblem from '~/pages/ShowProblem';
+import OrderConfirmation from '~/pages/OrderConfirmation';
 
 const Stack = createStackNavigator();
 

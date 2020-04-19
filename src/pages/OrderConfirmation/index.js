@@ -1,17 +1,16 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useRef, useState } from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
 import { api } from '~/services';
 import { Background, Button, Camera, CameraWrapper, Container, Content, TakePictureButton } from './styles';
 
-
 export default function OrderConfirmation() {
   const auth = useSelector(state => state.auth);
   const navigation = useNavigation();
   const route = useRoute();
-
+  const { delivery_id} = route.params;
   let cameraRef = useRef(null);
   const [pictureUri, setPictureUri] = useState('');
 
@@ -26,7 +25,7 @@ export default function OrderConfirmation() {
 
     const pictureResponse = await api.post('photos', dataFile);
     await api.put(
-      `/deliveryman/${auth.id}/delivery/${route.params.delivery_id}/finish`,
+      `/deliveryman/${auth.id}/delivery/${delivery_id}/finish`,
       {
         signature_id: pictureResponse.data.id,
       }
