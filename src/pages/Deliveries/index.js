@@ -1,5 +1,6 @@
-import { format, parseISO } from 'date-fns';
 import React, { useEffect, useState } from 'react';
+import { Text } from 'react-native';
+import { format, parseISO } from 'date-fns';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useDispatch, useSelector } from 'react-redux';
 import Avatar from '~/components/Avatar';
@@ -7,6 +8,7 @@ import { api } from '~/services';
 import { signOut } from '~/store/modules/auth/actions';
 import DeliveryItem from './DeliveryItem';
 import { ActionContainer, Container, List, Menu, Title, Name, Option, Options, Profile, TitleContainer, Welcome } from './styles';
+import { useRoute } from '@react-navigation/native';
 
 
 export default function Deliveries() {
@@ -45,10 +47,10 @@ export default function Deliveries() {
                     : '- - / - - / - -',
             }));
 
-            if(typeOrder == 'ENTREGUES'){
+            if (typeOrder == 'ENTREGUES') {
                 const result = data.filter(itemDelivery => itemDelivery.status === 'ENTREGUE');
                 setDeliveries(result);
-            }else {
+            } else {
                 setDeliveries(data);
             }
 
@@ -104,11 +106,13 @@ export default function Deliveries() {
                 </Options>
             </Menu>
 
-            <List
+            {deliveries && <List
                 data={deliveries}
                 keyExtractor={item => String(item.id)}
                 renderItem={({ item }) => <DeliveryItem data={item} />}
-            />
+            />}
+
+
         </Container>
     );
 }

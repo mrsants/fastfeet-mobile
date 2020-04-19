@@ -1,10 +1,11 @@
-import { useNavigation, useRoute } from '@react-navigation/native';
 import React from 'react';
-import { StatusBar, View, Alert } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { Alert, StatusBar, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
-
+import { api } from '~/services';
 import { Background, Card, Container, Content, Label, Menu, Option, OptionTitle, Status, Title, TitleContainer, Value } from './styles';
+
 
 
 export default function OrderDetails() {
@@ -16,10 +17,8 @@ export default function OrderDetails() {
   async function handleWithDrawDelivery() {
     async function loadWithDraw() {
       try {
-        await api.put(`/deliverymans/${auth.id}/deliveries/${delivery.id}`, {
-          start_date: new Date(),
-        });
-
+        await api.put(`deliverymans/${auth.id}/deliveries/schedule/${delivery.id}`);
+        
         navigation.navigate('Entregas');
       } catch (err) {
         Alert.alert('Ocorreu um erro ao tentar retirar!');
@@ -90,23 +89,22 @@ export default function OrderDetails() {
 
         <Menu>
           <Option
-            activeOpacity={delivery.status === 'PENDENTE' ? 1 : 0.7}
             disabled={delivery.status === 'PENDENTE'}
             onPress={() =>
               navigation.navigate('CreateNewProblem', { delivery_id: delivery.id })
             }
           >
-            <Icon name="highlight-off" color="#E74040" size={20} />
+            <Icon name="highlight-off" color={delivery.status === 'PENDENTE' ? '#CCC' : '#E74040'} size={20} />
             <OptionTitle>Informar Problema</OptionTitle>
           </Option>
 
           <Option
-            activeOpacity={delivery.status === 'PENDENTE' ? 1 : 0.7}
+            disabled={delivery.status === 'PENDENTE'}
             onPress={() =>
               navigation.navigate('ShowProblem', { delivery_id: delivery.id })
             }
           >
-            <Icon name="info-outline" color="#E7BA40" size={20} />
+            <Icon name="info-outline" color={delivery.status === 'PENDENTE' ? '#CCC' : '#E7BA40'} size={20} />
             <OptionTitle>Visualizar Problemas</OptionTitle>
           </Option>
 
