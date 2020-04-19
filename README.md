@@ -35,7 +35,8 @@ _ps: Antes de executar lembre de iniciar o backend desenvolvido nos módulos 2 e
 1. Faça um clone desse repositório;
 2. Entre na pasta rodando `cd fastfeet-mobile`;
 3. Rode `yarn` para instalar as dependências;
-4. Rode `yarn start` para iniciar o client.
+4. Rode `pod install` caso esteja no MacOS.
+5. Roda `react-native run-ios || react-native run-android` para iniciar o emulador.
 
 ## 🤔 Como contribuir
 
@@ -52,4 +53,4 @@ Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE.md) para
 
 ---
 
-Feito com ♥ by Rocketseat :wave: [Entre na nossa comunidade!](https://discordapp.com/invite/gCRAFhc)
+Feito com ♥ by Marcelo Santos :wave: [Entre em contato!](marcelobatipta@gmail.com)
