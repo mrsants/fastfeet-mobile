@@ -4,7 +4,7 @@ import { Image } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useSelector } from 'react-redux';
 import { api } from '~/services';
-import { Background, Button, Camera, CameraWrapper, Container, Content, TakePictureButton } from './styles';
+import { Background, ButtonStyled, Camera, CameraWrapper, Container, Content, TakePictureButton } from './styles';
 
 export default function OrderConfirmation() {
   const auth = useSelector(state => state.auth);
@@ -57,9 +57,9 @@ export default function OrderConfirmation() {
             </TakePictureButton>
           </CameraWrapper>
         )}
-        <Button onPress={handleSubmit} loading={false}>
+        <ButtonStyled onPress={handleSubmit} loading={false}>
           Enviar
-        </Button>
+        </ButtonStyled>
       </Content>
     </Container>
   );

@@ -32,7 +32,7 @@ export const Camera = styled(RNCamera)`
   flex: 1;
 `;
 
-export const Button = styled(Button)`
+export const ButtonStyled = styled(Button)`
   background: #7D40E7;
 
   margin: 15px 0 15px 0;
