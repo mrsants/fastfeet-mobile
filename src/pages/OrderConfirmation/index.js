@@ -17,7 +17,7 @@ export default function OrderConfirmation() {
   async function handleSubmit() {
 
     const dataFile = new FormData();
-    dataFile.append('file', {
+    dataFile.append('photos', {
       type: 'image/jpg',
       uri: pictureUri,
       name: 'assignature.jpg',
@@ -25,9 +25,9 @@ export default function OrderConfirmation() {
 
     const pictureResponse = await api.post('photos', dataFile);
     await api.put(
-      `/deliveryman/${auth.id}/delivery/${delivery_id}/finish`,
+      `order-delivery/${delivery_id}/deliverymans/${auth.id}/confirmation`,
       {
-        signature_id: pictureResponse.data.id,
+        signature_id: parseInt(pictureResponse.data.id),
       }
     );
     navigation.navigate('Entregas');
